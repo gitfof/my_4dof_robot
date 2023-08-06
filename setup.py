@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'sub = my_4dof_rob.my_4dof_subscriber:main',
+                'sub = my_4dof_robot.my_4dof_subscriber:main',
         ],
     },
 )

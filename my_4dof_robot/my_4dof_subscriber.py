@@ -1,11 +1,13 @@
 import rclpy
+import serial, time
+from rclpy.node import Node
+
 from geometry_msgs.msg import Twist
 
-
-class 4dof_Subscriber(Node):
+class Robot_Subscriber(Node):
 
     def __init__(self):
-        super().__init__('4dof_subscriber')
+        super().__init__('Robot_subscriber')
         self.subscription = self.create_subscription(
             Twist,
             '/cmd_vel',
@@ -14,20 +16,30 @@ class 4dof_Subscriber(Node):
         self.subscription  # prevent unused variable warning
 
     def listener_callback(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.linear)
-
+        self.get_logger().info('I heard: "%s"' % msg.linear.x)
+        with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
+            time.sleep(0.1);
+            if arduino.isOpen():
+                try:
+                    while True:
+                        if msg.linear.x>0:
+                            arduino.write("bal");
+                        elif msg.linear.x<0:
+                            arduino.write("jobb");
+                except:
+                    print("hiba");  
 
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = MinimalSubscriber()
+    robot = Robot_Subscriber()
 
-    rclpy.spin(minimal_subscriber)
+    rclpy.spin(robot)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    minimal_subscriber.destroy_node()
+    robot.destroy_node()
     rclpy.shutdown()
 
 
