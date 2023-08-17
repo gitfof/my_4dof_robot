@@ -21,20 +21,37 @@ class Robot_Subscriber(Node):
             time.sleep(2);
             if arduino.isOpen():
                 try:
-                    if msg.linear.x > 0:
-                        bla = "bal"
-                        if arduino.in_waiting==0:
+                    #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
+                    bla="00"
+                    if arduino.in_waiting==0:
                             for i in bla:
                                 arduino.write(bytes(i, "UTF-8"))
                                 time.sleep(0.2)
-                            print("balra megyunk")
-                    elif msg.linear.x<0:
-                        bla = "jobb"
-                        if arduino.in_waiting==0:
-                            for i in bla:
-                                arduino.write(bytes(i, "UTF-8"))
-                                time.sleep(0.2)
-                            print("jobbra megyunk")    
+                            print("státuszt kérek")
+                    time.sleep(0.1)
+                    # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
+                    status = "S1P000S2P000S3P000S4P000"
+                    servo_1 = int(status[3:6])     # alap motor (forgás)
+                    servo_2 = int(status[9:12])    # Joint1 (előre-hátra)
+                    servo_3 = int(status[15:18])   # Joint2 (fel-le)
+                    servo_4 = int(status[22:])     # Megfogó
+                    # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
+                    if msg.linear.z != 0:
+                        servo_1 += msg.linear.z
+                    if msg.linear.x != 0:
+                        servo_1 += msg.linear.x
+                    if msg.linear.y != 0:
+                        servo_1 += msg.linear.y
+                    # kell még a megfogó - melyik gomb legyen?????
+                    Servo_4= 90
+
+                    # összerakom az üzenetet
+                    bla= "S1P" + servo_1 + "S2P" + servo_2 + "S3P" + servo_3 + "S4P" + servo_4
+                    if arduino.in_waiting==0:
+                        for i in bla:
+                            arduino.write(bytes(i, "UTF-8"))
+                            time.sleep(0.2)
+                            print("mozgás!")
                 except:
                     print("hiba");  
 
