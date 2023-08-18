@@ -46,22 +46,22 @@ class Robot_Subscriber(Node):
                     Servo_4= 25
 
                     # összerakom az üzenetet
-                    szog_1 = str(servo_1)
+                    szog_1 = str(int(servo_1))
                     if len(szog_1) == 1: 
                         szog_1 = "00" + szog_1
                     elif len(szog_1) == 2:
                         szog_1 = "0" + szog_1
-                    szog_2 = str(servo_2)
+                    szog_2 = str(int(servo_2))
                     if len(szog_2) == 1: 
                         szog_2 = "00" + szog_2
                     elif len(szog_2) == 2:
                         szog_2 = "0" + szog_2
-                    szog_3 = str(servo_3)
+                    szog_3 = str(int(servo_3))
                     if len(szog_3) == 1: 
                         szog_3 = "00" + szog_3
                     elif len(szog_3) == 2:
                         szog_3 = "0" + szog_3
-                    szog_4 = str(servo_4)
+                    szog_4 = str(int(servo_4))
                     if len(szog_4) == 1: 
                         szog_4 = "00" + szog_4
                     elif len(szog_4) == 2:
