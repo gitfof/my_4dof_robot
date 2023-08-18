@@ -37,11 +37,11 @@ class Robot_Subscriber(Node):
                     servo_4 = int(status[22:])     # Megfogó
                     # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
                     if msg.linear.z != 0:
-                        servo_1 += msg.linear.z * 5
+                        servo_1 += int(msg.linear.z * 5)
                     if msg.linear.x != 0:
-                        servo_2 += msg.linear.x *10
+                        servo_2 += int(msg.linear.x) *10)
                     if msg.linear.y != 0:
-                        servo_3 += msg.linear.y * 10
+                        servo_3 += int(msg.linear.y * 10)
                     # kell még a megfogó - melyik gomb legyen?????
                     Servo_4= 25
 
