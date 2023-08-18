@@ -76,7 +76,7 @@ class Robot_Subscriber(Node):
                             for i in bla:
                                 arduino.write(bytes(i, "UTF-8"))
                                 time.sleep(0.2)
-                                print("mozgás!")
+                            print("mozgás!")
                 except:
                     print("hiba");  
 
