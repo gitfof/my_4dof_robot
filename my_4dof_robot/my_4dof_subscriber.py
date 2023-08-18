@@ -37,15 +37,36 @@ class Robot_Subscriber(Node):
                     servo_4 = int(status[22:])     # Megfogó
                     # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
                     if msg.linear.z != 0:
-                        servo_1 += int(msg.linear.z) * 5
+                        servo_1 += msg.linear.z * 5
                     if msg.linear.x != 0:
-                        servo_2 += int(msg.linear.x) *10
+                        servo_2 += msg.linear.x *10
                     if msg.linear.y != 0:
-                        servo_3 += int(msg.linear.y) * 10
+                        servo_3 += msg.linear.y * 10
                     # kell még a megfogó - melyik gomb legyen?????
                     Servo_4= 25
 
                     # összerakom az üzenetet
+                    szog_1 = str(servo_1)
+                    if len(szog_1) == 1: 
+                        szog_1 = "00" + szog_1
+                    elif len(szog_1) == 2:
+                        szog_1 = "0" + szog_1
+                    szog_2 = str(servo_2)
+                    if len(szog_2) == 1: 
+                        szog_2 = "00" + szog_2
+                    elif len(szog_2) == 2:
+                        szog_2 = "0" + szog_2
+                    szog_3 = str(servo_3)
+                    if len(szog_3) == 1: 
+                        szog_3 = "00" + szog_3
+                    elif len(szog_3) == 2:
+                        szog_3 = "0" + szog_3
+                    szog_4 = str(servo_4)
+                    if len(szog_4) == 1: 
+                        szog_4 = "00" + szog_4
+                    elif len(szog_4) == 2:
+                        szog_4 = "0" + szog_4
+
                     bla= "S1P" + str(servo_1) + "S2P" + str(servo_2) + "S3P" + str(servo_3) + "S4P" + str(servo_4)
                     print(bla)
                     if arduino.in_waiting==0:
