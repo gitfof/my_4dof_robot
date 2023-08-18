@@ -47,6 +47,7 @@ class Robot_Subscriber(Node):
 
                     # összerakom az üzenetet
                     bla= "S1P" + Str(servo_1) + "S2P" + Str(servo_2) + "S3P" + Str(servo_3) + "S4P" + Str(servo_4)
+                    print(bla)
                     if arduino.in_waiting==0:
                         for i in bla:
                             arduino.write(bytes(i, "UTF-8"))
