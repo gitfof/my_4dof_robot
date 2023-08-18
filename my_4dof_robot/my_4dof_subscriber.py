@@ -28,9 +28,9 @@ class Robot_Subscriber(Node):
                                 arduino.write(bytes(i, "UTF-8"))
                                 time.sleep(0.2)
                             print("státuszt kérek")
-                    time.sleep(0.1)
+                    time.sleep(0.2)
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
-                    status = "S1P000S2P000S3P000S4P000"
+                    status = "S1P090S2P090S3P110S4P025"
                     servo_1 = int(status[3:6])     # alap motor (forgás)
                     servo_2 = int(status[9:12])    # Joint1 (előre-hátra)
                     servo_3 = int(status[15:18])   # Joint2 (fel-le)
@@ -43,10 +43,10 @@ class Robot_Subscriber(Node):
                     if msg.linear.y != 0:
                         servo_1 += msg.linear.y
                     # kell még a megfogó - melyik gomb legyen?????
-                    Servo_4= 90
+                    Servo_4= 25
 
                     # összerakom az üzenetet
-                    bla= "S1P" + servo_1 + "S2P" + servo_2 + "S3P" + servo_3 + "S4P" + servo_4
+                    bla= "S1P" + Str(servo_1) + "S2P" + Str(servo_2) + "S3P" + Str(servo_3) + "S4P" + Str(servo_4)
                     if arduino.in_waiting==0:
                         for i in bla:
                             arduino.write(bytes(i, "UTF-8"))
