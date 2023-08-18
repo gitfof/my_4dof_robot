@@ -29,11 +29,10 @@ class Robot_Subscriber(Node):
                                 time.sleep(0.2)
                             print("státuszt kérek")
                     while arduino.in_waiting==0: pass
-                    time.sleep(0.5)
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
                     if arduino.in_waiting > 0:
                         status = arduino.readline()
-                        status.strip
+                        status.strip()
                         print(status)
                         """ servo_1 = int(status[3:6])     # alap motor (forgás)
                         servo_2 = int(status[9:12])    # Joint1 (előre-hátra)
