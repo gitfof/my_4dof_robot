@@ -34,7 +34,7 @@ class Robot_Subscriber(Node):
                     if arduino.in_waiting() > 0:
                         status = arduino.readline()
                         print(status)
-                        servo_1 = int(status[3:6])     # alap motor (forgás)
+                        """ servo_1 = int(status[3:6])     # alap motor (forgás)
                         servo_2 = int(status[9:12])    # Joint1 (előre-hátra)
                         servo_3 = int(status[15:18])   # Joint2 (fel-le)
                         servo_4 = int(status[22:])     # Megfogó
@@ -76,7 +76,7 @@ class Robot_Subscriber(Node):
                             for i in bla:
                                 arduino.write(bytes(i, "UTF-8"))
                                 time.sleep(0.2)
-                                print("mozgás!")
+                                print("mozgás!") """
                 except:
                     print("hiba");  
 
