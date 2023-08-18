@@ -67,7 +67,7 @@ class Robot_Subscriber(Node):
                     elif len(szog_4) == 2:
                         szog_4 = "0" + szog_4
 
-                    bla= "S1P" + str(servo_1) + "S2P" + str(servo_2) + "S3P" + str(servo_3) + "S4P" + str(servo_4)
+                    bla= "S1P" + str(szog_1) + "S2P" + str(szog_2) + "S3P" + str(szog_3) + "S4P" + str(szog_4)
                     print(bla)
                     if arduino.in_waiting==0:
                         for i in bla:
