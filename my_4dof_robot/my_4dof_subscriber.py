@@ -49,7 +49,7 @@ class Robot_Subscriber(Node):
                     servo_4 = int(status[22:])     # Megfogó
                         # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
                     if msg.angular.z != 0:
-                        servo_1 += int(msg.linear.z * 5)
+                        servo_1 += int(msg.angular.z * 5)
                         if (servo_1 > 180): servo_1 = 180
                         elif (servo_1 < 0): servo_1 = 0
                     if msg.linear.x != 0:
