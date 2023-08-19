@@ -23,12 +23,14 @@ class Robot_Subscriber(Node):
             #time.sleep(2);
         if self.arduino.isOpen():
             try:
+                print("ha van valami hír...")
                 if self.arduino.in_waiting > 0:
                     status = self.arduino.readline()
                     status.strip()
                     print(status)
                     #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
                 bla="00"
+                print("státusz kéréshez készülni...")
                 if self.arduino.in_waiting==0:
                     for i in bla:
                         self.arduino.write(bytes(i, "UTF-8"))
@@ -36,6 +38,7 @@ class Robot_Subscriber(Node):
                         print("státuszt kérek")
                 while self.arduino.in_waiting==0: pass
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
+                print("státuszkérésre választ várok...")
                 if self.arduino.in_waiting > 0:
                     status = arduino.readline()
                     status.strip()
@@ -57,6 +60,7 @@ class Robot_Subscriber(Node):
                         # kell még a megfogó - melyik gomb legyen?????
                     Servo_4= 25
 
+                    print("mozgáshoz a parancs összeállítása")
                         # összerakom az üzenetet
                     szog_1 = str(int(servo_1))
                     if len(szog_1) == 1: 
@@ -79,6 +83,7 @@ class Robot_Subscriber(Node):
                     elif len(szog_4) == 2:
                         szog_4 = "0" + szog_4
 
+                    print("mozgás parancs kiküldése")
                     bla= "S1P" + szog_1 + "S2P" + szog_2 + "S3P" + szog_3 + "S4P" + szog_4
                     print(bla)
                     if self.arduino.in_waiting==0:
@@ -88,6 +93,7 @@ class Robot_Subscriber(Node):
                         print("mozgás!")
                     while self.arduino.in_waiting==0: pass
                         # ellenőrzöm a futtatás eredményét
+                    print("várom a visszajelzést a mozgás befejezéséről")
                     if self.arduino.in_waiting > 0:
                         status = self.arduino.readline()
                         status.strip()
