@@ -49,14 +49,17 @@ class Robot_Subscriber(Node):
                     servo_4 = int(status[22:])     # Megfogó
                         # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
                     if msg.angular.z != 0:
-                            #servo_1 += int(msg.linear.z * 5)
-                        servo_1 = 45
+                        servo_1 += int(msg.linear.z * 5)
+                        if (servo_1 > 180): servo_1 = 180
+                        elif (servo_1 < 0): servo_1 = 0
                     if msg.linear.x != 0:
-                            #servo_2 += int(msg.linear.x * 10)
-                        servo_2 = 120
+                        servo_2 += int(msg.linear.x * 10)
+                        if (servo_2 > 140): servo_2 = 140
+                        elif (servo_2 < 80): servo_2 = 80
                     if msg.linear.y != 0:
-                            # servo_3 += int(msg.linear.y * 10)
-                        servo_3 = 130
+                        servo_3 += int(msg.linear.y * 10)
+                        if (servo_3 > 140) : servo_3 = 140
+                        elif (servo_3 < 80) : servo_3 = 80
                         # kell még a megfogó - melyik gomb legyen?????
                     Servo_4= 25
 
