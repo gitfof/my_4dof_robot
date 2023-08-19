@@ -40,7 +40,7 @@ class Robot_Subscriber(Node):
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
                 print("státuszkérésre választ várok...")
                 if self.arduino.in_waiting > 0:
-                    status = arduino.readline()
+                    status = self.arduino.readline()
                     status.strip()
                     print(status)
                     servo_1 = int(status[3:6])     # alap motor (forgás)
