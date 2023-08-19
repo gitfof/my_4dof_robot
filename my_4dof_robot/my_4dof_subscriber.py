@@ -21,22 +21,22 @@ class Robot_Subscriber(Node):
         self.get_logger().info('I heard: "%s"' % msg.linear.x)
         #with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
             #time.sleep(2);
-        if arduino.isOpen():
+        if self.arduino.isOpen():
             try:
-                if arduino.in_waiting > 0:
-                    status = arduino.readline()
+                if self.arduino.in_waiting > 0:
+                    status = self.arduino.readline()
                     status.strip()
                     print(status)
                     #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
                 bla="00"
-                if arduino.in_waiting==0:
+                if self.arduino.in_waiting==0:
                     for i in bla:
-                        arduino.write(bytes(i, "UTF-8"))
+                        self.arduino.write(bytes(i, "UTF-8"))
                         time.sleep(0.2)
                         print("státuszt kérek")
-                while arduino.in_waiting==0: pass
+                while self.arduino.in_waiting==0: pass
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
-                if arduino.in_waiting > 0:
+                if self.arduino.in_waiting > 0:
                     status = arduino.readline()
                     status.strip()
                     print(status)
@@ -81,15 +81,15 @@ class Robot_Subscriber(Node):
 
                     bla= "S1P" + szog_1 + "S2P" + szog_2 + "S3P" + szog_3 + "S4P" + szog_4
                     print(bla)
-                    if arduino.in_waiting==0:
+                    if self.arduino.in_waiting==0:
                         for i in bla:
-                            arduino.write(bytes(i, "UTF-8"))
+                            self.arduino.write(bytes(i, "UTF-8"))
                             time.sleep(0.2)
                         print("mozgás!")
-                    while arduino.in_waiting==0: pass
+                    while self.arduino.in_waiting==0: pass
                         # ellenőrzöm a futtatás eredményét
-                    if arduino.in_waiting > 0:
-                        status = arduino.readline()
+                    if self.arduino.in_waiting > 0:
+                        status = self.arduino.readline()
                         status.strip()
                         print(status)
             except:
