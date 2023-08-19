@@ -34,7 +34,7 @@ class Robot_Subscriber(Node):
                 if self.arduino.in_waiting==0:
                     for i in bla:
                         self.arduino.write(bytes(i, "UTF-8"))
-                        time.sleep(0.2)
+                        #time.sleep(0.2)
                     print("státuszt kérek")
                 while self.arduino.in_waiting==0: pass
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
@@ -92,7 +92,7 @@ class Robot_Subscriber(Node):
                     if self.arduino.in_waiting==0:
                         for i in bla:
                             self.arduino.write(bytes(i, "UTF-8"))
-                            time.sleep(0.2)
+                            #time.sleep(0.2)
                         print("mozgás!")
                     while self.arduino.in_waiting==0: pass
                         # ellenőrzöm a futtatás eredményét
