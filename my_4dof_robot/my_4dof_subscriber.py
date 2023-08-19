@@ -21,6 +21,10 @@ class Robot_Subscriber(Node):
             time.sleep(2);
             if arduino.isOpen():
                 try:
+                    if arduino.in_waiting > 0:
+                        status = arduino.readline()
+                        status.strip()
+                        print(status)
                     #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
                     bla="00"
                     if arduino.in_waiting==0:
