@@ -35,7 +35,7 @@ class Robot_Subscriber(Node):
                     for i in bla:
                         self.arduino.write(bytes(i, "UTF-8"))
                         time.sleep(0.2)
-                        print("státuszt kérek")
+                    print("státuszt kérek")
                 while self.arduino.in_waiting==0: pass
                     # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
                 print("státuszkérésre választ várok...")
