@@ -39,7 +39,7 @@ class Robot_Subscriber(Node):
                         servo_3 = int(status[15:18])   # Joint2 (fel-le)
                         servo_4 = int(status[22:])     # Megfogó
                         # ezután feldolgozom a Twist üzenetben kapott mozgásinfót...
-                        if msg.linear.z != 0:
+                        if msg.angular.z != 0:
                             #servo_1 += int(msg.linear.z * 5)
                             servo_1 = 45
                         if msg.linear.x != 0:
