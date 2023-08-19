@@ -18,7 +18,7 @@ class Robot_Subscriber(Node):
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.linear.x)
         with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
-            time.sleep(2);
+            time.sleep(1);
             if arduino.isOpen():
                 try:
                     #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
@@ -77,6 +77,12 @@ class Robot_Subscriber(Node):
                                 arduino.write(bytes(i, "UTF-8"))
                                 time.sleep(0.2)
                             print("mozgás!")
+                        while arduino.in_waiting==0: pass
+                        # ellenőrzöm a futtatás eredményét
+                        if arduino.in_waiting > 0:
+                            status = arduino.readline()
+                            status.strip()
+                            print(status)
                 except:
                     print("hiba");  
 
