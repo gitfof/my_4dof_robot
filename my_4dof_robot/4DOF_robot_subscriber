@@ -58,8 +58,8 @@ class Robot_Subscriber(Node):
                         elif (servo_3 < 80) : servo_3 = 80
                     if msg.joint4 != 0:
                         servo_4 += int(msg.joint4)
-                        #if (servo_3 > 140) : servo_3 = 140
-                        #elif (servo_3 < 80) : servo_3 = 80
+                        if (servo_4 > 140) : servo_4 = 140
+                        elif (servo_4 < 25) : servo_4 = 25
                         # kell még a megfogó - melyik gomb legyen?????
                         # Servo_4= 25
 
