@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
                 'sub = my_4dof_robot.my_4dof_subscriber:main',
-                'robot_sub = my_4dof_robot.4dof_robot_subscriber:main',
+                'robot_sub = my_4dof_robot.my_4dof_robot_subscriber_corrected:main',
         ],
     },
 )
