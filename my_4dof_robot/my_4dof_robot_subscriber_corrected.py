@@ -38,17 +38,17 @@ class Robot_Subscriber(Node):
                     status = self.arduino.readline()
                     status.strip()
                     print(status)
-                    servo_1 = int(status[0:2])     # basic joint (turn left-right)
-                    servo_2 = int(status[3:5])    # shoulder (front-back)
-                    servo_3 = int(status[6:8])   # ankle (up-down)
-                    servo_4 = int(status[9:11])     # gripper
+                    servo_1 = int(status[1:3])     # basic joint (turn left-right)
+                    servo_2 = int(status[4:6])    # shoulder (front-back)
+                    servo_3 = int(status[7:9])   # ankle (up-down)
+                    servo_4 = int(status[10:12])     # gripper
 
                     print(servo_1)
                     print(servo_2)
                     
                     # Not used in 4DOF robot...
-                    servo_5 = int(status[12:14])
-                    servo_6 = int(status[15:17])
+                    servo_5 = int(status[13:15])
+                    servo_6 = int(status[16:18])
                     
                     # Process ROS Robot type message (got from the ROS server node)...
                     if msg.joint1 != 0:
