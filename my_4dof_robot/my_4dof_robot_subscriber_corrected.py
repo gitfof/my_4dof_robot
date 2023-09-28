@@ -111,7 +111,7 @@ class Robot_Subscriber(Node):
                         
 
                     print("RPI_Node: Send move command to Arduino...")
-                    bla= szog_1 + szog_2 + szog_3 + szog_4
+                    bla= szog_1 + szog_2 + szog_3 + szog_4 + szog_5 + szog_6
                     print(bla)
                     if self.arduino.in_waiting==0:
                         for i in bla:
