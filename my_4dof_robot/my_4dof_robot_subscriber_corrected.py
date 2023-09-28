@@ -15,15 +15,15 @@ class Robot_Subscriber(Node):
     def listener_callback(self, msg):
         if self.arduino.isOpen():
             try:
-                print("ha van valami hír...")
+                print("RPI_Node: waiting for any news...")
                 if self.arduino.in_waiting > 0:
                     status = self.arduino.readline()
                     status.strip()
                     print(status)
                 
-                #  Először lekérem a servo motorok státuszát az Arduinotól serial buson...
+                #  Ask for servo status from Arduino via Serial port...
                 bla="00"
-                print("státusz kéréshez készülni...")
+                print("RPI_Node: sending status request to Arduino...")
                 if self.arduino.in_waiting==0:
                     for i in bla:
                         self.arduino.write(bytes(i, "UTF-8"))
@@ -32,18 +32,22 @@ class Robot_Subscriber(Node):
                 
                 while self.arduino.in_waiting==0: pass
                 
-                # státusz válasz feldolgozása - servo motor aktuális szögek változóba elrakva
-                print("státuszkérésre választ várok...")
+                print("RPI_Node: waiting for status report from Arduino...")
+                # Process status report - update joint angles
                 if self.arduino.in_waiting > 0:
                     status = self.arduino.readline()
                     status.strip()
                     print(status)
-                    servo_1 = int(status[3:6])     # alap motor (forgás)
-                    servo_2 = int(status[9:12])    # Joint1 (előre-hátra)
-                    servo_3 = int(status[15:18])   # Joint2 (fel-le)
-                    servo_4 = int(status[22:])     # Megfogó
+                    servo_1 = int(status[1:3])     # basic joint (turn left-right)
+                    servo_2 = int(status[4:6])    # shoulder (front-back)
+                    servo_3 = int(status[7:9])   # ankle (up-down)
+                    servo_4 = int(status[10:12])     # gripper
+
+                    # Not used in 4DOF robot...
+                    servo_5 = int(status[13:15])
+                    servo_6 = int(status[16:18])
                     
-                    # ezután feldolgozom a Robot üzenetben kapott mozgásinfót...
+                    # Process ROS Robot type message (got from the ROS server node)...
                     if msg.joint1 != 0:
                         servo_1 += int(msg.joint1)
                         if (servo_1 > 180): servo_1 = 180
@@ -60,11 +64,19 @@ class Robot_Subscriber(Node):
                         servo_4 += int(msg.joint4)
                         if (servo_4 > 140) : servo_4 = 140
                         elif (servo_4 < 25) : servo_4 = 25
-                        # kell még a megfogó - melyik gomb legyen?????
-                        # Servo_4= 25
+                    
+                    # Not used in 4DOF robot...
+                    if msg.joint5 != 0:
+                        servo_5 += int(msg.joint5)
+                        if (servo_5 > 180) : servo_5 = 180
+                        elif (servo_5 < 0) : servo_5 = 0
+                    if msg.joint6 != 0:
+                        servo_6 += int(msg.joint6)
+                        if (servo_6 > 180) : servo_6 = 180
+                        elif (servo_6 < 0) : servo_6 = 0                    
 
-                    print("mozgáshoz a parancs összeállítása")
-                        # összerakom az üzenetet
+                    print("RPI_Node: Creating move command for Arduino...")
+                    # összerakom az üzenetet
                     szog_1 = str(int(servo_1))
                     if len(szog_1) == 1: 
                         szog_1 = "00" + szog_1
@@ -86,17 +98,17 @@ class Robot_Subscriber(Node):
                     elif len(szog_4) == 2:
                         szog_4 = "0" + szog_4
 
-                    print("mozgás parancs kiküldése")
+                    print("RPI_Node: Send move command to Arduino...")
                     bla= "S1P" + szog_1 + "S2P" + szog_2 + "S3P" + szog_3 + "S4P" + szog_4
                     print(bla)
                     if self.arduino.in_waiting==0:
                         for i in bla:
                             self.arduino.write(bytes(i, "UTF-8"))
                             #time.sleep(0.2)
-                        print("mozgás!")
+                        print("Move!")
                     while self.arduino.in_waiting==0: pass
-                        # ellenőrzöm a futtatás eredményét
-                    print("várom a visszajelzést a mozgás befejezéséről")
+                    # Check result of the movement
+                    print("RPI_Node: waiting for response from Arduino about finishing the movement...")
                     if self.arduino.in_waiting > 0:
                         status = self.arduino.readline()
                         status.strip()
