@@ -76,7 +76,7 @@ class Robot_Subscriber(Node):
                         elif (servo_6 < 0) : servo_6 = 0                    
 
                     print("RPI_Node: Creating move command for Arduino...")
-                    # összerakom az üzenetet
+                    # creating the message
                     szog_1 = str(int(servo_1))
                     if len(szog_1) == 1: 
                         szog_1 = "00" + szog_1
@@ -97,9 +97,21 @@ class Robot_Subscriber(Node):
                         szog_4 = "00" + szog_4
                     elif len(szog_4) == 2:
                         szog_4 = "0" + szog_4
+                        
+                    szog_5 = str(int(servo_5))
+                    if len(szog_5) == 1: 
+                        szog_5 = "00" + szog_5
+                    elif len(szog_5) == 2:
+                        szog_5 = "0" + szog_5
+                    szog_6 = str(int(servo_6))
+                    if len(szog_6) == 1: 
+                        szog_6 = "00" + szog_6
+                    elif len(szog_6) == 2:
+                        szog_6 = "0" + szog_6
+                        
 
                     print("RPI_Node: Send move command to Arduino...")
-                    bla= "S1P" + szog_1 + "S2P" + szog_2 + "S3P" + szog_3 + "S4P" + szog_4
+                    bla= szog_1 + szog_2 + szog_3 + szog_4
                     print(bla)
                     if self.arduino.in_waiting==0:
                         for i in bla:
