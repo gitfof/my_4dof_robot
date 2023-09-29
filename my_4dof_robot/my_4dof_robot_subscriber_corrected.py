@@ -57,16 +57,16 @@ class Robot_Subscriber(Node):
                         elif (servo_1 < 0): servo_1 = 0
                     if msg.joint2 != 0:
                         servo_2 += int(msg.joint2)
-                        if (servo_2 > 140): servo_2 = 140
-                        elif (servo_2 < 80): servo_2 = 80
+                        if (servo_2 > 120): servo_2 = 120
+                        elif (servo_2 < 00): servo_2 = 0
                     if msg.joint3 != 0:
                         servo_3 += int(msg.joint3)
-                        if (servo_3 > 140) : servo_3 = 140
-                        elif (servo_3 < 80) : servo_3 = 80
+                        if (servo_3 > 80) : servo_3 = 80
+                        elif (servo_3 < 0) : servo_3 = 0
                     if msg.joint4 != 0:
                         servo_4 += int(msg.joint4)
                         if (servo_4 > 140) : servo_4 = 140
-                        elif (servo_4 < 25) : servo_4 = 25
+                        elif (servo_4 < 25) : servo_4 = 0
                     
                     # Not used in 4DOF robot...
                     if msg.joint5 != 0:
