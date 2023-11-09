@@ -51,30 +51,30 @@ class Robot_Subscriber(Node):
                     servo_6 = int(status[15:18])
                     
                     # Process ROS Robot type message (got from the ROS server node)...
-                    if msg.joint1 != 0:
-                        servo_1 += int(msg.joint1)
+                    if msg.joint1 >= 0:
+                        servo_1 = int(msg.joint1)
                         if (servo_1 > 180): servo_1 = 180
                         elif (servo_1 < 0): servo_1 = 0
-                    if msg.joint2 != 0:
-                        servo_2 += int(msg.joint2)
-                        if (servo_2 > 120): servo_2 = 120
+                    if msg.joint2 >= 0:
+                        servo_2 = int(msg.joint2)
+                        if (servo_2 > 120): servo_2 = 100
                         elif (servo_2 < 00): servo_2 = 0
-                    if msg.joint3 != 0:
-                        servo_3 += int(msg.joint3)
-                        if (servo_3 > 80) : servo_3 = 80
+                    if msg.joint3 >= 0:
+                        servo_3 = int(msg.joint3)
+                        if (servo_3 > 80) : servo_3 = 90
                         elif (servo_3 < 0) : servo_3 = 0
-                    if msg.joint4 != 0:
-                        servo_4 += int(msg.joint4)
+                    if msg.joint4 >= 0:
+                        servo_4 = int(msg.joint4)
                         if (servo_4 > 90) : servo_4 = 90
                         elif (servo_4 < 0) : servo_4 = 0
                     
                     # Not used in 4DOF robot...
-                    if msg.joint5 != 0:
-                        servo_5 += int(msg.joint5)
+                    if msg.joint5 >= 0:
+                        servo_5 = int(msg.joint5)
                         if (servo_5 > 180) : servo_5 = 180
                         elif (servo_5 < 0) : servo_5 = 0
-                    if msg.joint6 != 0:
-                        servo_6 += int(msg.joint6)
+                    if msg.joint6 >= 0:
+                        servo_6 = int(msg.joint6)
                         if (servo_6 > 180) : servo_6 = 180
                         elif (servo_6 < 0) : servo_6 = 0                    
 
