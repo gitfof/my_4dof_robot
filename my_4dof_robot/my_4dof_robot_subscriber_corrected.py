@@ -132,14 +132,14 @@ class Robot_Subscriber(Node):
                         status.strip()
                         print(status)
 
-            # After the movement publish the joint states
-            jsm = JointState()
-            jsm.header.stamp = self.get_clock().now().to_msg()
-            jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
-            jsm.position = [servo_1, servo_2, servo_3, servo_4]
-            jsm.velocity = [0.0, 0.0, 0.0, 0.0]
-            jsm.effort = [0.0, 0.0, 0.0, 0.0]
-            self.publisher.publish(jsm)
+                # After the movement publish the joint states
+                jsm = JointState()
+                jsm.header.stamp = self.get_clock().now().to_msg()
+                jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
+                jsm.position = [servo_1, servo_2, servo_3, servo_4]
+                jsm.velocity = [0.0, 0.0, 0.0, 0.0]
+                jsm.effort = [0.0, 0.0, 0.0, 0.0]
+                self.publisher.publish(jsm)
             
             except:
                 # TODO - hibakezelo agat ki kell majd dolgozni!!!
