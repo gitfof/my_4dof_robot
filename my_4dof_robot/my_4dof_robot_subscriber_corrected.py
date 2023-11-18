@@ -2,7 +2,7 @@ import rclpy
 import serial, time
 from rclpy.node import Node
 from my_interfaces.msg import Robot
-from sensor_msgs import JointState
+from sensor_msgs.msg import JointState
 
 class Robot_Subscriber(Node):
 
