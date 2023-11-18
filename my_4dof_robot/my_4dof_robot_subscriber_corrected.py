@@ -45,7 +45,7 @@ class Robot_Subscriber(Node):
                     servo_3 = int(status[6:9])   # ankle (up-down)
                     servo_4 = int(status[9:12])     # gripper
 
-                    print("bla-" + servo_1)
+                    print("bla-" & servo_1)
                     print(servo_2)
                     
                     # Not used in 4DOF robot...
