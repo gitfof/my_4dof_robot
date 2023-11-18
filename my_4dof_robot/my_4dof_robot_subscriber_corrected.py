@@ -2,6 +2,7 @@ import rclpy
 import serial, time
 from rclpy.node import Node
 from my_interfaces.msg import Robot
+from sensor_msgs import JointState
 
 class Robot_Subscriber(Node):
 
@@ -10,6 +11,8 @@ class Robot_Subscriber(Node):
         self.subscription = self.create_subscription(Robot,'/robot_controller',self.listener_callback,10)
         self.subscription  # prevent unused variable warning
         self.arduino = serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=1)
+        self.publisher = self.create_publisher(JointState, farobot_jsp, 10)
+        self.timer = self.create_timer(1.0, self.listener_callback)
         time.sleep(2)
 
     def listener_callback(self, msg):
@@ -128,14 +131,26 @@ class Robot_Subscriber(Node):
                         status = self.arduino.readline()
                         status.strip()
                         print(status)
-            except:
-                print("hiba");  
 
+            # After the movement publish the joint states
+            jsm = JointState()
+            jsm.header.stamp = self.get_clock().now().to_msg()
+            jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
+            jsm.position = [servo_1, servo_2, servo_3, servo_4]
+            jsm.velocity = [0.0, 0.0, 0.0, 0.0]
+            jsm.effort = [0.0, 0.0, 0.0, 0.0]
+            self.publisher.publish(jsm)
+            
+            except:
+                # TODO - hibakezelo agat ki kell majd dolgozni!!!
+                
+                print("hiba");  
+        
 def main(args=None):
     rclpy.init(args=args)
 
     robot = Robot_Subscriber()
-
+    
     rclpy.spin(robot)
 
     # Destroy the node explicitly
