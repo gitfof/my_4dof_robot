@@ -43,11 +43,7 @@ class Robot_Subscriber(Node):
                     servo_1 = int(status[0:3])     # basic joint (turn left-right)
                     servo_2 = int(status[3:6])    # shoulder (front-back)
                     servo_3 = int(status[6:9])   # ankle (up-down)
-                    servo_4 = int(status[9:12])     # gripper
-
-                    print("bla-", servo_1)
-                    print(servo_2)
-                    
+                    servo_4 = int(status[9:12])     # gripper    
                     # Not used in 4DOF robot...
                     servo_5 = int(status[12:15])
                     servo_6 = int(status[15:18])
@@ -134,11 +130,8 @@ class Robot_Subscriber(Node):
                 # After the movement publish the joint states
                 jsm = JointState()
                 jsm.header.stamp = self.get_clock().now().to_msg()
-                print("itt1")
                 jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
-                print("itt3")
                 jsm.position = [float(servo_1), float(servo_2), float(servo_3), float(servo_4)]
-                print("itt2")
                 jsm.velocity = [0.0, 0.0, 0.0, 0.0]
                 jsm.effort = [0.0, 0.0, 0.0, 0.0]
                 self.publisher.publish(jsm)
