@@ -137,7 +137,7 @@ class Robot_Subscriber(Node):
                 print("itt1")
                 jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
                 print("itt3")
-                jsm.position = [servo_1, servo_2, servo_3, servo_4]
+                jsm.position = [float(servo_1), float(servo_2), float(servo_3), float(servo_4)]
                 print("itt2")
                 jsm.velocity = [0.0, 0.0, 0.0, 0.0]
                 jsm.effort = [0.0, 0.0, 0.0, 0.0]
