@@ -11,7 +11,7 @@ class Robot_Subscriber(Node):
         self.subscription = self.create_subscription(Robot,'/robot_controller',self.listener_callback,10)
         self.subscription  # prevent unused variable warning
         self.arduino = serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=1)
-        self.publisher = self.create_publisher(JointState, farobot_jsp, 10)
+        self.publisher = self.create_publisher(JointState, 'farobot_jsp', 10)
         self.timer = self.create_timer(1.0, self.listener_callback)
         time.sleep(2)
 
