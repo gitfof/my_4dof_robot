@@ -45,7 +45,7 @@ class Robot_Subscriber(Node):
                     servo_3 = int(status[6:9])   # ankle (up-down)
                     servo_4 = int(status[9:12])     # gripper
 
-                    print(servo_1)
+                    print("bla-" + servo_1)
                     print(servo_2)
                     
                     # Not used in 4DOF robot...
@@ -59,11 +59,11 @@ class Robot_Subscriber(Node):
                         elif (servo_1 < 0): servo_1 = 0
                     if msg.joint2 >= 0:
                         servo_2 = int(msg.joint2)
-                        if (servo_2 > 120): servo_2 = 100
-                        elif (servo_2 < 00): servo_2 = 0
+                        if (servo_2 > 100): servo_2 = 100
+                        elif (servo_2 < 0): servo_2 = 0
                     if msg.joint3 >= 0:
                         servo_3 = int(msg.joint3)
-                        if (servo_3 > 80) : servo_3 = 90
+                        if (servo_3 > 90) : servo_3 = 90
                         elif (servo_3 < 0) : servo_3 = 0
                     if msg.joint4 >= 0:
                         servo_4 = int(msg.joint4)
@@ -136,6 +136,7 @@ class Robot_Subscriber(Node):
                 jsm.header.stamp = self.get_clock().now().to_msg()
                 print("itt1")
                 jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
+                print("itt3")
                 jsm.position = [servo_1, servo_2, servo_3, servo_4]
                 print("itt2")
                 jsm.velocity = [0.0, 0.0, 0.0, 0.0]
