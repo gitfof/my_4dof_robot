@@ -1,4 +1,5 @@
 import rclpy
+import math
 import serial, time
 from rclpy.node import Node
 from my_interfaces.msg import Robot
@@ -129,9 +130,14 @@ class Robot_Subscriber(Node):
 
                 # After the movement publish the joint states
                 jsm = JointState()
+                j1 = math.radians(servo_1)
+                j2 = math.radians(servo_2)
+                j3 = math.radians(servo_3)
+                j4 = math.radians(servo_4)
+                
                 jsm.header.stamp = self.get_clock().now().to_msg()
                 jsm.name = ['base_to_base2','console_to_arm1','arm1_to_arm2','arm2_to_gripper']
-                jsm.position = [float(servo_1), float(servo_2), float(servo_3), float(servo_4)]
+                jsm.position = [j1, j2, j3, j4]
                 jsm.velocity = [0.0, 0.0, 0.0, 0.0]
                 jsm.effort = [0.0, 0.0, 0.0, 0.0]
                 self.publisher.publish(jsm)
