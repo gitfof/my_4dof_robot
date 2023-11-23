@@ -111,7 +111,6 @@ class Robot_Subscriber(Node):
                     elif len(szog_6) == 2:
                         szog_6 = "0" + szog_6
                         
-
                     print("RPI_Node: Send move command to Arduino...")
                     bla= szog_1 + szog_2 + szog_3 + szog_4 + szog_5 + szog_6
                     print(bla)
@@ -130,6 +129,8 @@ class Robot_Subscriber(Node):
 
                 # After the movement publish the joint states
                 jsm = JointState()
+                servo_3 = servo_3-servo_2-90
+                servo_4 = servo_4-servo_3-90
                 j1 = math.radians(servo_1)
                 j2 = math.radians(servo_2)
                 j3 = math.radians(servo_3)
