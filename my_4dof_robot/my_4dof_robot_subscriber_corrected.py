@@ -129,8 +129,8 @@ class Robot_Subscriber(Node):
 
                 # After the movement publish the joint states
                 jsm = JointState()
-                servo_3 = servo_3-(servo_2-90)
-                servo_4 = servo_4-(servo_3-90)
+                servo_3 = servo_3+(servo_2-90)
+                servo_4 = servo_4+(servo_3-90)
                 j1 = math.radians(servo_1)
                 j2 = math.radians(servo_2)
                 j3 = math.radians(servo_3)
