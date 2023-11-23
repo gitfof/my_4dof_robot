@@ -56,12 +56,12 @@ class Robot_Subscriber(Node):
                         elif (servo_1 < 0): servo_1 = 0
                     if msg.joint2 >= 0:
                         servo_2 = int(msg.joint2)
-                        if (servo_2 > 100): servo_2 = 100
-                        elif (servo_2 < 0): servo_2 = 0
+                        if (servo_2 > 150): servo_2 = 150
+                        elif (servo_2 < 40): servo_2 = 40
                     if msg.joint3 >= 0:
                         servo_3 = int(msg.joint3)
-                        if (servo_3 > 90) : servo_3 = 90
-                        elif (servo_3 < 0) : servo_3 = 0
+                        if (servo_3 > 110) : servo_3 = 110
+                        elif (servo_3 < 20) : servo_3 = 20
                     if msg.joint4 >= 0:
                         servo_4 = int(msg.joint4)
                         if (servo_4 > 90) : servo_4 = 90
