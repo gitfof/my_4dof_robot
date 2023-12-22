@@ -10,20 +10,29 @@ class Robot_Subscriber(Node):
     def __init__(self):
         super().__init__('Robot_subscriber')
         self.subscription = self.create_subscription(Robot,'/robot_controller',self.listener_callback,10)
-        self.subscription  # prevent unused variable warning
-        self.arduino = serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=1)
+        # self.subscription  # prevent unused variable warning
+        ports = ["/dev/ttyACM0", "/dev/ttyAMA0", "/dev/ttyUSB0"]
+        #self.arduino = serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=1)
+        for port in ports:
+            try:
+                self.arduino = serial.Serial(port, baudrate=9600, timeout=1)
+                break
+            except serial.SerialException:
+                print(port, " cannot be connected")
+                pass
         self.publisher = self.create_publisher(JointState, 'farobot_jsp', 10)
         time.sleep(2)
 
     def listener_callback(self, msg):
         if self.arduino.isOpen():
             try:
+                """
                 print("RPI_Node: waiting for any news...")
                 if self.arduino.in_waiting > 0:
                     status = self.arduino.readline()
                     status.strip()
                     print(status)
-                
+                """
                 #  Ask for servo status from Arduino via Serial port...
                 bla="00"
                 print("RPI_Node: sending status request to Arduino...")
